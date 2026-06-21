@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Phone, Mail, MapPin, Menu, X, ChevronDown } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -66,9 +67,11 @@ const Header: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-primary flex items-center justify-center rounded-lg shadow-md group-hover:scale-105 transition-transform duration-300">
-              <span className="text-white font-extrabold text-xl tracking-wider">MC</span>
-            </div>
+            <img 
+              src={logo} 
+              alt="Moduler Container Hub" 
+              className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+            />
             <div className="flex flex-col">
               <span className="text-secondary font-black text-lg sm:text-xl tracking-tight leading-none">
                 Moduler<span className="text-primary">Container</span>Hub

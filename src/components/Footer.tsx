@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, MapPin, Phone } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 const Footer: React.FC = () => {
   return (
@@ -10,9 +11,11 @@ const Footer: React.FC = () => {
         {/* Brand & About */}
         <div className="flex flex-col gap-4">
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-primary flex items-center justify-center rounded-lg shadow-md">
-              <span className="text-white font-extrabold text-xl">MC</span>
-            </div>
+            <img 
+              src={logo} 
+              alt="Moduler Container Hub" 
+              className="h-12 w-auto object-contain bg-white rounded p-1 transition-transform duration-300 group-hover:scale-105" 
+            />
             <div className="flex flex-col">
               <span className="text-white font-black text-lg tracking-tight leading-none">
                 Moduler<span className="text-primary">Container</span>Hub
