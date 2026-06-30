@@ -167,7 +167,7 @@ const Header: React.FC = () => {
           <div className="hidden lg:flex items-center">
             <Link
               to="/quote"
-              className="bg-primary hover:bg-primary-dark text-white text-sm font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+              className="btn-shine bg-primary hover:bg-primary-dark text-white text-sm font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
             >
               Get a Quote
             </Link>

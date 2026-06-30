@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import {
   ArrowRight, Wrench, ShieldCheck, Truck, RotateCcw,
   Star, Container, Landmark, FileCheck, ShieldAlert, Quote as QuoteIcon,
-  Users, Package, Award
+  Users, Package, Award, ChevronDown
 } from 'lucide-react';
 import { PRODUCTS_DATA } from '../lib/products-data';
 import { animateFadeIn, animateStaggeredFadeIn } from '../lib/gsap-config';
+import CountUp from '../components/CountUp';
 
 /* ─────────────────────── DATA ─────────────────────── */
 
@@ -120,10 +121,10 @@ const homeServices = [
 ];
 
 const stats = [
-  { value: '500+', label: 'Units Delivered', icon: <Package className="w-6 h-6" /> },
-  { value: '40+', label: 'Countries Served', icon: <Truck className="w-6 h-6" /> },
-  { value: '12+', label: 'Years Experience', icon: <Award className="w-6 h-6" /> },
-  { value: '98%', label: 'Client Satisfaction', icon: <Users className="w-6 h-6" /> }
+  { end: 500, suffix: '+', label: 'Units Delivered', icon: <Package className="w-6 h-6" /> },
+  { end: 40, suffix: '+', label: 'Countries Served', icon: <Truck className="w-6 h-6" /> },
+  { end: 12, suffix: '+', label: 'Years Experience', icon: <Award className="w-6 h-6" /> },
+  { end: 98, suffix: '%', label: 'Client Satisfaction', icon: <Users className="w-6 h-6" /> }
 ];
 
 /* ─────────────────────── STAR COMPONENT ─────────────────────── */
@@ -244,7 +245,7 @@ const Home: React.FC = () => {
                   {slide.sub}
                 </p>
                 <div className="flex flex-wrap gap-4 mt-4">
-                  <Link to="/quote" className="bg-primary hover:bg-primary-dark text-white font-bold px-8 py-3.5 rounded-xl shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2">
+                  <Link to="/quote" className="btn-shine bg-primary hover:bg-primary-dark text-white font-bold px-8 py-3.5 rounded-xl shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2">
                     <span>Get a Quote</span>
                     <ArrowRight size={18} />
                   </Link>
@@ -267,6 +268,12 @@ const Home: React.FC = () => {
               aria-label={`Go to slide ${idx + 1}`}
             />
           ))}
+        </div>
+
+        {/* Scroll-down cue */}
+        <div className="absolute bottom-7 right-8 z-30 hidden sm:flex flex-col items-center gap-1 text-white/70">
+          <span className="text-[10px] font-semibold tracking-widest uppercase">Scroll</span>
+          <ChevronDown size={20} className="animate-bob" />
         </div>
       </section>
 
@@ -379,8 +386,8 @@ const Home: React.FC = () => {
       {/* ══════════════════ NEW: ABOUT SECTION ══════════════════ */}
       <section ref={aboutRef} className="py-24 bg-secondary relative overflow-hidden">
         {/* decorative blobs */}
-        <div className="absolute top-0 left-0 w-72 h-72 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 left-0 w-72 h-72 bg-primary/10 rounded-full blur-3xl pointer-events-none animate-float" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none animate-float-slow" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4">
           {/* Heading */}
@@ -401,7 +408,7 @@ const Home: React.FC = () => {
                 <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary">
                   {s.icon}
                 </div>
-                <div className="text-4xl font-black text-white">{s.value}</div>
+                <CountUp end={s.end} suffix={s.suffix} className="text-4xl font-black text-white" />
                 <div className="text-slate-400 text-sm font-medium tracking-wide">{s.label}</div>
               </div>
             ))}
@@ -586,8 +593,8 @@ const Home: React.FC = () => {
 
       {/* ══════════════════ CTA BOTTOM BANNER ══════════════════ */}
       <section className="relative py-20 bg-secondary overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none animate-float" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none animate-float-slow" />
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center flex flex-col gap-6">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight">
             Ready to Build and Deploy Your Container Space?
@@ -596,7 +603,7 @@ const Home: React.FC = () => {
             Contact our engineering team to design, equip, and ship the exact modular solution your operations require.
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-2">
-            <Link to="/quote" className="bg-primary hover:bg-primary-dark text-white font-bold px-8 py-3.5 rounded-xl shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+            <Link to="/quote" className="btn-shine bg-primary hover:bg-primary-dark text-white font-bold px-8 py-3.5 rounded-xl shadow-lg hover:-translate-y-0.5 transition-all duration-300">
               Get Custom Quote
             </Link>
             <Link to="/contact" className="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3.5 rounded-xl border border-white/20 transition-all duration-300">

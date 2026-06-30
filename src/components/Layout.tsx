@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
+import ScrollUtilities from './ScrollUtilities';
 
 const Layout: React.FC = () => {
   const { pathname, hash } = useLocation();
@@ -23,6 +24,7 @@ const Layout: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <ScrollUtilities />
       <Header />
       <main className="flex-grow">
         <Outlet />
