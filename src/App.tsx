@@ -7,11 +7,19 @@ import Services from './pages/Services';
 import Products from './pages/Products';
 import Contact from './pages/Contact';
 import Quote from './pages/Quote';
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminLayout from './pages/admin/AdminLayout';
+import Dashboard from './pages/admin/Dashboard';
+import Inquiries from './pages/admin/Inquiries';
+import Quotes from './pages/admin/Quotes';
+import AdminProducts from './pages/admin/AdminProducts';
+import Settings from './pages/admin/Settings';
 
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
+        {/* Public site */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
@@ -19,9 +27,20 @@ const App: React.FC = () => {
           <Route path="products" element={<Products />} />
           <Route path="contact" element={<Contact />} />
           <Route path="quote" element={<Quote />} />
-          {/* Redirect all unmatched routes to Home */}
-          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
+
+        {/* Admin */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="inquiries" element={<Inquiries />} />
+          <Route path="quotes" element={<Quotes />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+
+        {/* Redirect all unmatched routes to Home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );

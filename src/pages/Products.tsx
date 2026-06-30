@@ -1,20 +1,32 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Search, ArrowUpDown } from 'lucide-react';
-import { PRODUCTS_DATA } from '../lib/products-data';
 import type { Product } from '../lib/products-data';
+import { getProducts } from '../lib/store';
 import { animateStaggeredFadeIn } from '../lib/gsap-config';
 
 const Products: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialCategory = searchParams.get('category') || 'All';
 
-  const [products, setProducts] = useState<Product[]>(PRODUCTS_DATA);
+  const [catalog, setCatalog] = useState<Product[]>(getProducts());
+  const [products, setProducts] = useState<Product[]>(getProducts());
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [sortBy, setSortBy] = useState<'default' | 'price-asc' | 'price-desc'>('default');
 
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Keep the catalog in sync with admin edits (same tab + other tabs)
+  useEffect(() => {
+    const reload = () => setCatalog(getProducts());
+    window.addEventListener('mch-store-change', reload);
+    window.addEventListener('storage', reload);
+    return () => {
+      window.removeEventListener('mch-store-change', reload);
+      window.removeEventListener('storage', reload);
+    };
+  }, []);
 
   const categories = [
     'All',
@@ -36,8 +48,8 @@ const Products: React.FC = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    let filtered = PRODUCTS_DATA.filter((p) => {
-      const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    let filtered = catalog.filter((p) => {
+      const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                             p.description.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory = selectedCategory === 'All' || p.category === selectedCategory;
       return matchesSearch && matchesCategory;
@@ -50,7 +62,7 @@ const Products: React.FC = () => {
     }
 
     setProducts(filtered);
-  }, [searchQuery, selectedCategory, sortBy]);
+  }, [catalog, searchQuery, selectedCategory, sortBy]);
 
   useEffect(() => {
     if (containerRef.current) {

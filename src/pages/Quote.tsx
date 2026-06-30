@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { FileText, User, Mail, Phone, ShoppingBag, Plus, Minus, Send, CheckCircle2, X } from 'lucide-react';
-import { PRODUCTS_DATA } from '../lib/products-data';
+import { getProducts } from '../lib/store';
 import confetti from 'canvas-confetti';
+
+const PRODUCTS_DATA = getProducts();
 
 interface QuoteFormData {
   name: string;
